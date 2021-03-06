@@ -1,8 +1,9 @@
 import React from 'react';
 
+
 const Cart = (props) => {
     const cart = props.cart;
-  const total = cart.reduce((total, productPrice) => total + productPrice.price, 0 )
+const total = cart.reduce((total, productPrice) => total + productPrice.price * productPrice.quantity, 0 )
   const formatNumber = number => {
       const precision = number.toFixed(2);
       return Number(precision)
@@ -20,10 +21,14 @@ const Cart = (props) => {
         <div>
             <h3>Order Summary</h3>
             <h5>Items Ordered: {cart.length}</h5>
-            <p>Product Price : {formatNumber(total)}</p>
+            <p>Product Price : ${formatNumber(total)}</p>
             <p>Shipping & Handling : ${shipping}</p>
             <p>Tax & Vat : ${formatNumber(tax)}</p>
             <p>Total :${formatNumber(total + shipping + tax)} </p>
+            <br/>
+            {
+                props.children
+            }
         </div>
     );
 };
